@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard de Hacking Ético - Herramientas de ciberseguridad educativas">
+    <title>CyberShield - Dashboard de Hacking Ético</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <!-- Fondo animado de partículas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Barra lateral de navegación -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">CyberShield</span>
+                    <span class="logo-subtitle">Hacking Ético</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-section="dashboard" id="nav-dashboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-link" data-section="port-scanner" id="nav-port-scanner">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <span>Escaneo de Puertos</span>
+            </a>
+            <a href="#" class="nav-link" data-section="password-gen" id="nav-password-gen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0110 0v4"/>
+                </svg>
+                <span>Generador de Contraseñas</span>
+            </a>
+            <a href="#" class="nav-link" data-section="sniffer" id="nav-sniffer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span>Sniffing de Red</span>
+            </a>
+            <a href="#" class="nav-link" data-section="keylogger" id="nav-keylogger">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"/>
+                </svg>
+                <span>Keylogger</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Sistema Activo</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content" id="mainContent">
+
+        <!-- =====================================================
+             SECCIÓN: DASHBOARD PRINCIPAL
+             ===================================================== -->
+        <section class="section active" id="section-dashboard">
+            <div class="section-header">
+                <h1>Panel de Control</h1>
+                <p class="section-desc">Centro de comando para herramientas de hacking ético</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Card 1: Port Scanner -->
+                <div class="dashboard-card card-scanner" onclick="navigateTo('port-scanner')">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                    </div>
+                    <h3>Escaneo de Puertos</h3>
+                    <p>Escanea puertos TCP abiertos en hosts remotos para identificar servicios activos y posibles vulnerabilidades.</p>
+                    <div class="card-tag">Reconocimiento</div>
+                </div>
+
+                <!-- Card 2: Password Generator -->
+                <div class="dashboard-card card-password" onclick="navigateTo('password-gen')">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0110 0v4"/>
+                        </svg>
+                    </div>
+                    <h3>Generador de Contraseñas</h3>
+                    <p>Genera contraseñas criptográficamente seguras con longitud personalizable, combinando letras, números y símbolos.</p>
+                    <div class="card-tag">Seguridad</div>
+                </div>
+
+                <!-- Card 3: Sniffer -->
+                <div class="dashboard-card card-sniffer" onclick="navigateTo('sniffer')">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Sniffing de Red</h3>
+                    <p>Captura y analiza el tráfico de red en tiempo real. Detecta protocolos inseguros y datos en texto plano.</p>
+                    <div class="card-tag">Monitoreo</div>
+                </div>
+
+                <!-- Card 4: Keylogger -->
+                <div class="dashboard-card card-keylogger" onclick="navigateTo('keylogger')">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"/>
+                        </svg>
+                    </div>
+                    <h3>Keylogger</h3>
+                    <p>Registra las pulsaciones de teclado para demostrar la importancia de proteger la entrada del usuario.</p>
+                    <div class="card-tag">Captura</div>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <div>
+                    <strong>Uso Educativo Exclusivo</strong>
+                    <p>Esta aplicación es para fines educativos en ciberseguridad. El uso no autorizado de estas herramientas puede ser ilegal. Utiliza estas herramientas solo en entornos controlados y con autorización.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             SECCIÓN 1: ESCANEO DE PUERTOS
+             ===================================================== -->
+        <section class="section" id="section-port-scanner">
+            <div class="section-header">
+                <h1>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    Escaneo de Puertos
+                </h1>
+                <p class="section-desc">Detecta puertos TCP abiertos y servicios activos en un host remoto</p>
+            </div>
+
+            <div class="tool-layout">
+                <div class="tool-config">
+                    <div class="config-card">
+                        <h3>Configuración del Escaneo</h3>
+                        <div class="form-group">
+                            <label for="scan-target">Dirección IP / Hostname</label>
+                            <input type="text" id="scan-target" placeholder="Ej: 192.168.1.1 o scanme.nmap.org" autocomplete="off">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="scan-start-port">Puerto Inicial</label>
+                                <input type="number" id="scan-start-port" value="1" min="1" max="65535">
+                            </div>
+                            <div class="form-group">
+                                <label for="scan-end-port">Puerto Final</label>
+                                <input type="number" id="scan-end-port" value="1024" min="1" max="65535">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-full" id="btn-scan" onclick="startPortScan()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            Iniciar Escaneo
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tool-results">
+                    <div class="results-card">
+                        <div class="results-header">
+                            <h3>Resultados del Escaneo</h3>
+                            <div id="scan-status" class="status-badge idle">Inactivo</div>
+                        </div>
+
+                        <!-- Scan Info -->
+                        <div id="scan-info" class="scan-info hidden">
+                            <div class="info-item">
+                                <span class="info-label">Objetivo</span>
+                                <span class="info-value" id="info-target">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">IP</span>
+                                <span class="info-value" id="info-ip">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Puertos Escaneados</span>
+                                <span class="info-value" id="info-total">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Puertos Abiertos</span>
+                                <span class="info-value highlight" id="info-open">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Duración</span>
+                                <span class="info-value" id="info-duration">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Loading -->
+                        <div id="scan-loading" class="loading-container hidden">
+                            <div class="cyber-loader"></div>
+                            <p>Escaneando puertos...</p>
+                        </div>
+
+                        <!-- Results Table -->
+                        <div id="scan-results-table" class="table-container hidden">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Puerto</th>
+                                        <th>Estado</th>
+                                        <th>Servicio</th>
+                                        <th>Banner</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scan-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="scan-empty" class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <p>Configura los parámetros e inicia el escaneo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             SECCIÓN 2: GENERADOR DE CONTRASEÑAS
+             ===================================================== -->
+        <section class="section" id="section-password-gen">
+            <div class="section-header">
+                <h1>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0110 0v4"/>
+                    </svg>
+                    Generador de Contraseñas Seguras
+                </h1>
+                <p class="section-desc">Contraseñas criptográficamente seguras con letras, números y caracteres especiales</p>
+            </div>
+
+            <div class="tool-layout">
+                <div class="tool-config">
+                    <div class="config-card">
+                        <h3>Configuración</h3>
+                        <div class="form-group">
+                            <label for="pwd-length">Longitud de la Contraseña</label>
+                            <div class="range-container">
+                                <input type="range" id="pwd-length" min="8" max="128" value="16" oninput="updateLengthDisplay()">
+                                <span class="range-value" id="pwd-length-display">16</span>
+                            </div>
+                            <span class="form-hint">Mínimo 8 caracteres</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd-count">Cantidad de Contraseñas</label>
+                            <input type="number" id="pwd-count" value="5" min="1" max="100">
+                            <span class="form-hint">Entre 1 y 100 contraseñas</span>
+                        </div>
+                        <button class="btn btn-accent btn-full" id="btn-generate" onclick="generatePasswords()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0110 0v4"/>
+                            </svg>
+                            Generar Contraseñas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tool-results">
+                    <div class="results-card">
+                        <div class="results-header">
+                            <h3>Contraseñas Generadas</h3>
+                        </div>
+
+                        <div id="pwd-loading" class="loading-container hidden">
+                            <div class="cyber-loader"></div>
+                            <p>Generando contraseñas seguras...</p>
+                        </div>
+
+                        <div id="pwd-results" class="password-list">
+                        </div>
+
+                        <div id="pwd-empty" class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0110 0v4"/>
+                            </svg>
+                            <p>Configura la longitud y cantidad para generar contraseñas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             SECCIÓN 3: SNIFFER DE RED
+             ===================================================== -->
+        <section class="section" id="section-sniffer">
+            <div class="section-header">
+                <h1>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    Sniffing de Red
+                </h1>
+                <p class="section-desc">Captura y análisis del tráfico de red en tiempo real. Requiere privilegios sudo.</p>
+            </div>
+
+            <div class="tool-layout">
+                <div class="tool-config">
+                    <div class="config-card">
+                        <h3>Configuración del Sniffer</h3>
+                        <div class="form-group">
+                            <label for="sniff-interface">Interfaz de Red (opcional)</label>
+                            <input type="text" id="sniff-interface" placeholder="Ej: eth0, wlan0 (vacío = todas)">
+                        </div>
+                        <div class="form-group">
+                            <label for="sniff-count">Cantidad de Paquetes</label>
+                            <input type="number" id="sniff-count" value="50" min="1" max="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="sniff-filter">Filtro BPF (opcional)</label>
+                            <input type="text" id="sniff-filter" placeholder="Ej: tcp port 80, udp, icmp">
+                            <span class="form-hint">Filtro Berkeley Packet Filter</span>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-warning btn-full" id="btn-sniff-start" onclick="startSniffer()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                                Iniciar Captura
+                            </button>
+                            <button class="btn btn-danger btn-full" id="btn-sniff-stop" onclick="stopSniffer()" disabled>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                    <rect x="6" y="6" width="12" height="12"/>
+                                </svg>
+                                Detener
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sniffer Status -->
+                    <div class="config-card mt-4">
+                        <h3>Estado del Sniffer</h3>
+                        <div class="status-panel" id="sniffer-status-panel">
+                            <div class="status-row">
+                                <span>Estado</span>
+                                <span class="status-value" id="sniff-status-state">Detenido</span>
+                            </div>
+                            <div class="status-row">
+                                <span>Paquetes Capturados</span>
+                                <span class="status-value" id="sniff-status-count">0</span>
+                            </div>
+                            <div class="status-row">
+                                <span>Interfaz</span>
+                                <span class="status-value" id="sniff-status-iface">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-results">
+                    <div class="results-card">
+                        <div class="results-header">
+                            <h3>Paquetes Capturados</h3>
+                            <button class="btn btn-sm btn-ghost" onclick="refreshSnifferPackets()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                    <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+                                    <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                                </svg>
+                                Actualizar
+                            </button>
+                        </div>
+
+                        <div id="sniff-results-table" class="table-container hidden">
+                            <table class="data-table sniff-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Hora</th>
+                                        <th>Protocolo</th>
+                                        <th>Origen</th>
+                                        <th>Destino</th>
+                                        <th>Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sniff-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="sniff-empty" class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                            <p>Inicia la captura para ver el tráfico de red</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             SECCIÓN 4: KEYLOGGER
+             ===================================================== -->
+        <section class="section" id="section-keylogger">
+            <div class="section-header">
+                <h1>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"/>
+                    </svg>
+                    Keylogger
+                </h1>
+                <p class="section-desc">Captura de pulsaciones de teclado usando la librería keyboard. Requiere privilegios sudo.</p>
+            </div>
+
+            <div class="tool-layout">
+                <div class="tool-config">
+                    <div class="config-card">
+                        <h3>Control del Keylogger</h3>
+                        <div class="btn-group">
+                            <button class="btn btn-warning btn-full" id="btn-keylog-start" onclick="startKeylogger()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                                Iniciar Captura
+                            </button>
+                            <button class="btn btn-danger btn-full" id="btn-keylog-stop" onclick="stopKeylogger()" disabled>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                    <rect x="6" y="6" width="12" height="12"/>
+                                </svg>
+                                Detener
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="config-card mt-4">
+                        <h3>Estado</h3>
+                        <div class="status-panel" id="keylog-status-panel">
+                            <div class="status-row">
+                                <span>Estado</span>
+                                <span class="status-value" id="keylog-status-state">Detenido</span>
+                            </div>
+                            <div class="status-row">
+                                <span>Teclas Capturadas</span>
+                                <span class="status-value" id="keylog-status-count">0</span>
+                            </div>
+                            <div class="status-row">
+                                <span>Inicio</span>
+                                <span class="status-value" id="keylog-status-time">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-results">
+                    <div class="results-card">
+                        <div class="results-header">
+                            <h3>Registro de Teclas</h3>
+                            <button class="btn btn-sm btn-ghost" onclick="refreshKeylogger()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                    <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+                                    <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                                </svg>
+                                Actualizar
+                            </button>
+                        </div>
+
+                        <!-- Texto reconstruido -->
+                        <div id="keylog-text-container" class="keylog-text-container hidden">
+                            <h4>Texto Reconstruido</h4>
+                            <div class="keylog-text" id="keylog-reconstructed">
+                            </div>
+                        </div>
+
+                        <!-- Tabla de teclas -->
+                        <div id="keylog-results-table" class="table-container hidden">
+                            <h4>Detalle de Pulsaciones</h4>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tecla</th>
+                                        <th>Tipo</th>
+                                        <th>Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="keylog-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="keylog-empty" class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="64" height="64">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M8 16h8"/>
+                            </svg>
+                            <p>Inicia la captura para registrar pulsaciones de teclado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
